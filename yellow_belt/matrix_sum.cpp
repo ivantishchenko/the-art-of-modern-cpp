@@ -24,7 +24,7 @@ public:
 
         num_rows_ = new_rows;
         num_cols_ = new_cols;
-        values_.assign(num_rows_, vector<int>(num_cols_));
+        values_ = vector(num_rows_, vector<int>(num_cols_));
     }
     int At(int i, int j) const {
         CheckIdx(i, j);
