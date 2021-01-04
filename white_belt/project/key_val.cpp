@@ -85,7 +85,7 @@ public:
         int N = events_[date].size();
         events_.erase(date);
         cout << "Deleted " << to_string(N) << " events" << endl;
-        return 0;
+        return N;
     }
     set<string> Find(const Date& date) const {
         if(events_.find(date) == events_.end()) {
