@@ -47,10 +47,15 @@ istream& operator>>(istream& in, Date& date) {
         date.SetDay(abs(day));
         date.SetMonth(abs(month));
         date.SetYear(abs(year));
-    } else {
-        throw invalid_argument("Invalid date");
+        return in;
     }
-    return in;
+    throw invalid_argument("Invalid date");
+}
+
+Date ParseDate(istream& in) {
+    Date date;
+    in >> date;
+    return date;
 }
 
 bool operator<(const Date& lhs, const Date& rhs){
