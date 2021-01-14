@@ -6,11 +6,16 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <string>
 
 using namespace std;
 
+// TODO: TEST
 string ParseEvent(istream& is) {
-  // Реализуйте эту функцию
+  while(is.peek() == ' ') is.ignore(1);
+  string event_str;
+  getline(is, event_str, '\n');
+  return event_str;
 }
 
 void TestAll();
