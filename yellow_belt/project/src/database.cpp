@@ -2,7 +2,6 @@
 
 #include <utility>
 
-
 void Database::Add(const Date& date, const string& event) {
 
 }
@@ -14,7 +13,7 @@ void Database::Print() const {
 
 }
 
-template <typename Predicate> 
+template <typename Predicate>
 int Database::RemoveIf(const Predicate& pred) {
 
 }

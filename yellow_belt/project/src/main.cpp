@@ -10,7 +10,6 @@
 
 using namespace std;
 
-// TODO: TEST
 string ParseEvent(istream& is) {
   while(is.peek() == ' ') is.ignore(1);
   string event_str;

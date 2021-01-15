@@ -10,7 +10,7 @@ void AssertEqual(const T& t, const U& u, const string& hint) {
   }
 }
 
-inline void Assert(bool b, const string& hint) {
+void Assert(bool b, const string& hint) {
   AssertEqual(b, true, hint);
 }
 
