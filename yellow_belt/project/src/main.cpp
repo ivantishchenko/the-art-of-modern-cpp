@@ -47,7 +47,6 @@ int main() {
       auto predicate = [condition](const Date& date, const string& event) {
         return condition->Evaluate(date, event);
       };
-
       const auto entries = db.FindIf(predicate);
       for (const auto& entry : entries) {
         cout << entry << endl;
