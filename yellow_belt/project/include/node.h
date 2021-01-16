@@ -21,18 +21,21 @@ enum class LogicalOperation {
 
 class Node {
 public:
-    virtual bool Evaluate(const Date& date, const string& str) const = 0;
+    virtual bool Evaluate(const Date& date, const string& event) const = 0;
 };
 
 class EmptyNode : public Node {
 public:
-    bool Evaluate(const Date& date, const string& str) const override;
+    EmptyNode();
+    bool Evaluate(const Date& date, const string& event) const override;
+private:
+    bool eval_res_;
 };
 
 class DateComparisonNode : public Node {
 public:
     DateComparisonNode(Comparison cmp, const Date& date);
-    bool Evaluate(const Date& date, const string& str) const override;
+    bool Evaluate(const Date& date, const string& event) const override;
 private:
     Comparison cmp_;
     Date date_;
@@ -40,20 +43,22 @@ private:
 
 class EventComparisonNode : public Node {
 public:
-    EventComparisonNode(Comparison cmp, const string& value);
-    bool Evaluate(const Date& date, const string& str) const override;
+    EventComparisonNode(Comparison cmp, const string& event);
+    bool Evaluate(const Date& date, const string& event) const override;
 private:
     Comparison cmp_;
-    string value_;
+    string event_;
 };
 
 class LogicalOperationNode : public Node {
 public:
-    LogicalOperationNode(const LogicalOperation logical_operation, 
-        shared_ptr<Node> left, shared_ptr<Node> right);
-    bool Evaluate(const Date& date, const string& str) const override;
+    LogicalOperationNode(LogicalOperation op, shared_ptr<Node> left, shared_ptr<Node> right);
+    bool Evaluate(const Date& date, const string& event) const override;
 private:
-    const LogicalOperation logical_operation_;
+    LogicalOperation op_;
     shared_ptr<Node> left_;
     shared_ptr<Node> right_;
 };
+
+template <typename T>
+bool EvalComparison(Comparison cmp, T lhs, T rhs);
