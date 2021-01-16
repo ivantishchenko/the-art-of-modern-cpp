@@ -58,8 +58,30 @@ Date ParseDate(istream& in) {
     return date;
 }
 
-bool operator<(const Date& lhs, const Date& rhs){
-    int total_lhs = lhs.GetYear() * 365 + lhs.GetMonth() * 31 + lhs.GetDay();
-    int total_rhs = rhs.GetYear() * 365 + rhs.GetMonth() * 31 + rhs.GetDay();
-    return total_lhs < total_rhs;
+int GetTotalDays(const Date& date) {
+    return date.GetYear() * 365 + date.GetMonth() * 31 + date.GetDay();
+}
+
+bool operator<(const Date& lhs, const Date& rhs) {
+    return GetTotalDays(lhs) < GetTotalDays(rhs);
+}
+
+bool operator<=(const Date& lhs, const Date& rhs) {
+    return GetTotalDays(lhs) <= GetTotalDays(rhs);
+}
+
+bool operator>(const Date& lhs, const Date& rhs) {
+    return GetTotalDays(lhs) > GetTotalDays(rhs);
+}
+
+bool operator>=(const Date& lhs, const Date& rhs) {
+    return GetTotalDays(lhs) >= GetTotalDays(rhs);
+}
+
+bool operator==(const Date& lhs, const Date& rhs) {
+    return GetTotalDays(lhs) == GetTotalDays(rhs);
+}
+
+bool operator!=(const Date& lhs, const Date& rhs) {
+    return GetTotalDays(lhs) != GetTotalDays(rhs);
 }

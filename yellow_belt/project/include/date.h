@@ -21,8 +21,17 @@ private:
     int day_;
 };
 
+// IO
 ostream& operator<<(ostream& out, const Date& date);
 istream& operator>>(istream& in, Date& date);
-bool operator<(const Date& lhs, const Date& rhs);
-
 Date ParseDate(istream& in);
+
+int GetTotalCmpValue(const Date& date);
+
+// Comparison
+bool operator<(const Date& lhs, const Date& rhs);
+bool operator<=(const Date& lhs, const Date& rhs);
+bool operator>(const Date& lhs, const Date& rhs);
+bool operator>=(const Date& lhs, const Date& rhs);
+bool operator==(const Date& lhs, const Date& rhs);
+bool operator!=(const Date& lhs, const Date& rhs);
