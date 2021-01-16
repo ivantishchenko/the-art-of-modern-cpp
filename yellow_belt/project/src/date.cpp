@@ -58,8 +58,9 @@ Date ParseDate(istream& in) {
     return date;
 }
 
+// (12*31=372)
 int GetTotalDays(const Date& date) {
-    return date.GetYear() * 365 + date.GetMonth() * 31 + date.GetDay();
+    return date.GetYear() * 372 + date.GetMonth() * 31 + date.GetDay();
 }
 
 bool operator<(const Date& lhs, const Date& rhs) {

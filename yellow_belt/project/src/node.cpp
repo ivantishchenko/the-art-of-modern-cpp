@@ -58,6 +58,5 @@ bool EvalComparison(Comparison cmp, T lhs, T rhs) {
             return lhs != rhs;
         default:
             throw invalid_argument("Not supported comparison");
-            return false;
     }
 }
