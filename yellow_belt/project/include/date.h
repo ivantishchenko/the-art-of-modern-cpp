@@ -26,7 +26,7 @@ ostream& operator<<(ostream& out, const Date& date);
 istream& operator>>(istream& in, Date& date);
 Date ParseDate(istream& in);
 
-int GetTotalCmpValue(const Date& date);
+int GetTotalDays(const Date& date);
 
 // Comparison
 bool operator<(const Date& lhs, const Date& rhs);
