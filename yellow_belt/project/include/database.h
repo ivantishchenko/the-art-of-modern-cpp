@@ -30,22 +30,38 @@ ostream& operator<<(ostream& out, const Database& db);
 
 template <typename Predicate>
 size_t Database::RemoveIf(const Predicate& pred) {
-    size_t removed_count = 0; 
-    for(const auto& [date, events] : date_to_sorted) {
-        for(const string& event: events) {
-            if(pred(date, event)) {
-                date_to_sorted.at(date).erase(event);
-                removed_count++;
+    size_t result = 0;
+    map<Date, vector<string>> new_storage;
+    map<Date, set<string>> new_checker;
+
+    for (auto& pair_ : date_to_vector) {
+        const auto border = stable_partition(pair_.second.begin(), pair_.second.end(), 
+            [pred, pair_](const auto& item) {
+                return pred(pair_.first, item);
             }
+        );
+
+        const size_t tmp = pair_.second.size();
+
+        if (border == pair_.second.end()) {
+            result += tmp;
+        } else {
+            new_storage[pair_.first] = vector<string>(border, pair_.second.end());
+            new_checker[pair_.first] = set<string>(border, pair_.second.end());
+            result += tmp - new_storage.at(pair_.first).size();
         }
     }
-    return removed_count;
+
+    date_to_vector = new_storage;
+    date_to_sorted = new_checker;
+
+    return result;
 }
 
 template <typename Predicate>
 multimap<Date, string> Database::FindIf(const Predicate& pred) const {
     multimap<Date, string> res;
-    for(const auto& [date, events] : date_to_sorted) {
+    for(const auto& [date, events] : date_to_vector) {
         for(const auto& event: events) {
             if(pred(date, event)) {
                 res.insert(make_pair(date, event));
