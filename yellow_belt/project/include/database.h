@@ -34,21 +34,21 @@ size_t Database::RemoveIf(const Predicate& pred) {
     map<Date, vector<string>> new_storage;
     map<Date, set<string>> new_checker;
 
-    for (auto& pair_ : date_to_vector) {
-        const auto border = stable_partition(pair_.second.begin(), pair_.second.end(), 
-            [pred, pair_](const auto& item) {
-                return pred(pair_.first, item);
+    for (auto& [date, events] : date_to_vector) {
+        const auto border = stable_partition(begin(events), end(events), 
+            [pred, date](const auto& event) {
+                return pred(date, event);
             }
         );
 
-        const size_t tmp = pair_.second.size();
+        const size_t tmp = events.size();
 
-        if (border == pair_.second.end()) {
+        if (border == events.end()) {
             result += tmp;
         } else {
-            new_storage[pair_.first] = vector<string>(border, pair_.second.end());
-            new_checker[pair_.first] = set<string>(border, pair_.second.end());
-            result += tmp - new_storage.at(pair_.first).size();
+            new_storage[date] = vector<string>(border, events.end());
+            new_checker[date] = set<string>(border, events.end());
+            result += tmp - new_storage.at(date).size();
         }
     }
 
