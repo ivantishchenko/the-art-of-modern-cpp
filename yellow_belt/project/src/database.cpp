@@ -6,7 +6,7 @@
 
 void Database::Add(const Date& date, const string& event) {
     date_to_sorted[date].insert(event);
-    date_to_stack[date].push(event);
+    date_to_vector[date].push_back(event);
 }
 
 void Database::Print(ostream& out) const {
@@ -28,7 +28,7 @@ pair<Date, string> Database::Last(const Date& date) const {
     upper_bound_it = prev(upper_bound_it);
     
     Date last_date = upper_bound_it->first;
-    string last_event = date_to_stack.at(last_date).top();
+    string last_event = date_to_vector.at(last_date).back();
 
     return make_pair(last_date, last_event);
 }
@@ -40,4 +40,14 @@ map<Date, set<string>> Database::GetStorage() const {
 ostream& operator<<(ostream& out, const Database& db) {
     db.Print(out);
     return out;
+}
+
+
+bool operator<(const pair<Date, string>& left, const pair<Date, string>& right) {
+	return left.first < right.first;
+}
+
+
+bool operator==(const pair<Date, string>& left, const pair<Date, string>& right) {
+	return left.first == right.first && right.second == left.second;
 }

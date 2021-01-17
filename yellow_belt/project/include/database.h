@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <algorithm>
 
 class Database {
 public:
@@ -17,12 +18,12 @@ public:
     template <typename Predicate> 
     size_t RemoveIf(const Predicate& pred);
     template <typename Predicate> 
-    map<Date, string> FindIf(const Predicate& pred) const;
+    multimap<Date, string> FindIf(const Predicate& pred) const;
     pair<Date, string> Last(const Date& date) const;
     map<Date, set<string>> GetStorage() const;
 private:
     map<Date, set<string>> date_to_sorted;
-    map<Date, stack<string>> date_to_stack;
+    map<Date, vector<string>> date_to_vector;
 };
 
 ostream& operator<<(ostream& out, const Database& db);
@@ -42,8 +43,8 @@ size_t Database::RemoveIf(const Predicate& pred) {
 }
 
 template <typename Predicate>
-map<Date, string> Database::FindIf(const Predicate& pred) const {
-    map<Date, string> res;
+multimap<Date, string> Database::FindIf(const Predicate& pred) const {
+    multimap<Date, string> res;
     for(const auto& [date, events] : date_to_sorted) {
         for(const auto& event: events) {
             if(pred(date, event)) {
