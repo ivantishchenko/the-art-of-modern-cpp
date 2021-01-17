@@ -31,8 +31,8 @@ ostream& operator<<(ostream& out, const Database& db);
 template <typename Predicate>
 size_t Database::RemoveIf(const Predicate& pred) {
     size_t result = 0;
-    map<Date, vector<string>> tmp_date_to_vector;
-    map<Date, set<string>> tmp_order_map;
+    map<Date, vector<string>> tmp_order_map;
+    map<Date, set<string>> tmp_lookup_map;
 
     for (auto& [date, events] : order_map_) {
         const auto border = stable_partition(begin(events), end(events), 
@@ -44,14 +44,14 @@ size_t Database::RemoveIf(const Predicate& pred) {
         if (border == events.end()) {
             result += events.size();
         } else {
-            tmp_date_to_vector[date] = vector<string>(border, end(events));
-            tmp_order_map[date] = set<string>(border, end(events));
-            result += order_map_.size() - tmp_date_to_vector.size();
+            tmp_order_map[date] = vector<string>(border, end(events));
+            tmp_lookup_map[date] = set<string>(border, end(events));
+            result += order_map_.size() - tmp_order_map.size();
         }
     }
 
-    order_map_ = tmp_date_to_vector;
-    lookup_map_ = tmp_order_map;
+    order_map_ = tmp_order_map;
+    lookup_map_ = tmp_lookup_map;
 
     return result;
 }
