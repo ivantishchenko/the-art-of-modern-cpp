@@ -5,10 +5,12 @@
 #include "test_runner.h"
 #include "date_test.h"
 #include "node_test.h"
+#include "database_test.h"
 
 #include <iostream>
 #include <stdexcept>
 #include <string>
+
 
 using namespace std;
 
@@ -100,4 +102,9 @@ void TestAll() {
   tr.RunTest(TestDateComparisonNode, "TestDateComparisonNode");
 	tr.RunTest(TestEventComparisonNode, "TestEventComparisonNode");
 	tr.RunTest(TestLogicalOperationNode, "TestLogicalOperationNode");
+  // Database
+  tr.RunTest(TestDatabaseAddAndPrint, "TestDatabaseAddAndPrint");
+	tr.RunTest(TestDatabaseFind, "TestDatabaseFind");
+	tr.RunTest(TestDatabaseRemove, "TestDatabaseRemove");
+	tr.RunTest(TestDatabaseLast, "TestDatabaseLast");
 }
