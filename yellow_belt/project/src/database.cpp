@@ -41,13 +41,3 @@ ostream& operator<<(ostream& out, const Database& db) {
     db.Print(out);
     return out;
 }
-
-
-bool operator<(const pair<Date, string>& left, const pair<Date, string>& right) {
-	return left.first < right.first;
-}
-
-
-bool operator==(const pair<Date, string>& left, const pair<Date, string>& right) {
-	return left.first == right.first && right.second == left.second;
-}

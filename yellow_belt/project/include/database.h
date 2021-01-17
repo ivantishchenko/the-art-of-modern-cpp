@@ -31,8 +31,8 @@ ostream& operator<<(ostream& out, const Database& db);
 template <typename Predicate>
 size_t Database::RemoveIf(const Predicate& pred) {
     size_t result = 0;
-    map<Date, vector<string>> new_storage;
-    map<Date, set<string>> new_checker;
+    map<Date, vector<string>> tmp_date_to_vector;
+    map<Date, set<string>> tmp_date_to_sorted;
 
     for (auto& [date, events] : date_to_vector) {
         const auto border = stable_partition(begin(events), end(events), 
@@ -41,19 +41,17 @@ size_t Database::RemoveIf(const Predicate& pred) {
             }
         );
 
-        const size_t tmp = events.size();
-
         if (border == events.end()) {
-            result += tmp;
+            result += events.size();
         } else {
-            new_storage[date] = vector<string>(border, events.end());
-            new_checker[date] = set<string>(border, events.end());
-            result += tmp - new_storage.at(date).size();
+            tmp_date_to_vector[date] = vector<string>(border, end(events));
+            tmp_date_to_sorted[date] = set<string>(border, end(events));
+            result += date_to_vector.size() - tmp_date_to_vector.size();
         }
     }
 
-    date_to_vector = new_storage;
-    date_to_sorted = new_checker;
+    date_to_vector = tmp_date_to_vector;
+    date_to_sorted = tmp_date_to_sorted;
 
     return result;
 }
