@@ -89,6 +89,11 @@ ostream& operator<<(ostream& out, const map<Key, Value>& m) {
   return out << '{' << Join(m, ',') << '}';
 }
 
+template <typename Key, typename Value>
+ostream& operator<<(ostream& out, const multimap<Key, Value>& m) {
+  return out << '{' << Join(m, ',') << '}';
+}
+
 template <typename T>
 ostream& operator<<(ostream& out, const set<T>& s) {
     return out << '{' << Join(s, ',') << '}';

@@ -3,7 +3,6 @@
 #include "condition_parser.h"
 #include "node.h"
 #include "test_runner.h"
-#include "database_test.h"
 #include "date_test.h"
 #include "node_test.h"
 
@@ -101,9 +100,4 @@ void TestAll() {
   tr.RunTest(TestDateComparisonNode, "TestDateComparisonNode");
 	tr.RunTest(TestEventComparisonNode, "TestEventComparisonNode");
 	tr.RunTest(TestLogicalOperationNode, "TestLogicalOperationNode");
-  // Database
-  // tr.RunTest(TestDatabaseAddAndPrint, "TestDatabaseAddAndPrint");
-	// tr.RunTest(TestDatabaseFind, "TestDatabaseFind");
-	// tr.RunTest(TestDatabaseRemove, "TestDatabaseRemove");
-	// tr.RunTest(TestDatabaseLast, "TestDatabaseLast");
 }
