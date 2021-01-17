@@ -1,0 +1,4 @@
+Ideas to improve the code:
+- Add std::tie for Date comparison
+- Rewrite RemoveIf with iterators for loops to avoid tmp maps
+- set -> unordered_set for lookup, if order doesn't matter
