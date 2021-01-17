@@ -46,7 +46,7 @@ size_t Database::RemoveIf(const Predicate& pred) {
         } else {
             tmp_order_map[date] = vector<string>(border, end(events));
             tmp_lookup_map[date] = set<string>(border, end(events));
-            result += order_map_.size() - tmp_order_map.size();
+            result += events.size() - tmp_order_map.at(date).size();
         }
     }
 
