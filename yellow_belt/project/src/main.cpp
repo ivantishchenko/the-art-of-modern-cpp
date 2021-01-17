@@ -3,6 +3,9 @@
 #include "condition_parser.h"
 #include "node.h"
 #include "test_runner.h"
+#include "database_test.h"
+#include "date_test.h"
+#include "node_test.h"
 
 #include <iostream>
 #include <stdexcept>
@@ -88,6 +91,19 @@ void TestParseEvent() {
 
 void TestAll() {
   TestRunner tr;
+  // Default
   tr.RunTest(TestParseEvent, "TestParseEvent");
   tr.RunTest(TestParseCondition, "TestParseCondition");
+  // Date
+	tr.RunTest(TestDateOutput, "TestDateOutput");
+	tr.RunTest(TestParseDate, "TestParseDate");
+  //Node
+  tr.RunTest(TestDateComparisonNode, "TestDateComparisonNode");
+	tr.RunTest(TestEventComparisonNode, "TestEventComparisonNode");
+	tr.RunTest(TestLogicalOperationNode, "TestLogicalOperationNode");
+  // Database
+  // tr.RunTest(TestDatabaseAddAndPrint, "TestDatabaseAddAndPrint");
+	// tr.RunTest(TestDatabaseFind, "TestDatabaseFind");
+	// tr.RunTest(TestDatabaseRemove, "TestDatabaseRemove");
+	// tr.RunTest(TestDatabaseLast, "TestDatabaseLast");
 }
