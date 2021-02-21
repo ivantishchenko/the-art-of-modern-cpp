@@ -1,12 +1,15 @@
 #include <iostream>
 #include <future>
+#include <mutex>
 
 using namespace std;
 
 struct Account {
     int balance = 0;
+    mutex m;
     
     bool Spend(int value) { 
+        lock_guard<mutex> g(m); 
         if(value <= balance) {
             balance -= value; 
             return true;
@@ -32,6 +35,8 @@ int main() {
     future<int> wife = async(SpendMoney, ref(family_account));
     future<int> son = async(SpendMoney, ref(family_account));
     future<int> daughter = async(SpendMoney, ref(family_account));
-    
-    cout << "Total spent: " << SpendMoney(family_account) << " Balance : " << family_account.balance << endl; 
+   
+    int total_spent = husband.get() + wife.get() + son.get() + daughter.get();
+
+    cout << "Total spent: " << total_spent << " Balance : " << family_account.balance << endl; 
 }
